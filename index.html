@@ -6,40 +6,83 @@
   <style>
     body {
       background: #ffe6ef;
-      font-family: Arial, sans-serif;
+      font-family: 'Arial Black', Arial, sans-serif;
       text-align: center;
-      padding-top: 40px;
+      padding-top: 50px;
     }
-    h1 { color: #b30059; }
-    #cake { width: 240px; margin-top: 20px; }
-    #knife { width: 80px; cursor: pointer; margin-top: 20px; }
-    #msg { display: none; font-size: 20px; color: #660033; margin-top: 20px; }
+    h1 {
+      color: #b30059;
+      font-size: 80px; /* huge heading */
+      margin-bottom: 20px;
+    }
+    #cake {
+      width: 400px; /* bigger cake */
+      margin: 40px auto;
+      display: block;
+    }
+    #knife {
+      width: 150px; /* bigger knife */
+      position: absolute;
+      top: 20px;
+      cursor: grab;
+    }
+    #msg {
+      display: none;
+      font-size: 60px; /* huge message */
+      color: #660033;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Happy Birthday Gunny Bunnu 🤍</h1>
-  <p>Click the knife to cut the cake 🎂</p>
+<h1>Happy Birthday Gunny Bunnu 🤍</h1>
+<p style="font-size:28px;">Drag the knife to the cake 🎂</p>
 
-  <!-- Cake image -->
-  <img id="cake" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Chocolate_Cake_with_Candle.png" alt="Cake">
+<!-- Pixel cake -->
+<img id="cake" src="https://media.tenor.com/Nb0Z5V93dJQAAAAC/birthday-cake-pixel-art.gif" alt="Pixel cake">
 
-  <!-- Knife image -->
-  <br>
-  <img id="knife" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Knife_icon.png" alt="Knife">
+<!-- Knife -->
+<img id="knife" src="https://www.kindpng.com/picc/m/456-4561720_gif-clipart-png-download-butter-knife-pixel-art.png" alt="Knife">
 
-  <div id="msg">
-    I love you the most and stand by you forever ❤️
-  </div>
+<!-- Huge hidden message -->
+<div id="msg">I LOVE YOU THE MOST AND STAND BY YOU FOREVER ❤️</div>
 
-  <script>
-    document.getElementById("knife").onclick = function() {
-      // Change cake image to “cut cake” (can be same if you don’t have one)
-      document.getElementById("cake").src = "https://upload.wikimedia.org/wikipedia/commons/4/45/Chocolate_Cake_with_Candle.png";
-      // Show the hidden message
-      document.getElementById("msg").style.display = "block";
+<script>
+  const knife = document.getElementById("knife");
+  const cake = document.getElementById("cake");
+  const msg = document.getElementById("msg");
+
+  let offsetX, offsetY, dragging = false;
+
+  knife.addEventListener("mousedown", e => {
+    dragging = true;
+    offsetX = e.clientX - knife.offsetLeft;
+    offsetY = e.clientY - knife.offsetTop;
+  });
+
+  document.addEventListener("mousemove", e => {
+    if (dragging) {
+      knife.style.left = (e.clientX - offsetX) + "px";
+      knife.style.top  = (e.clientY - offsetY) + "px";
     }
-  </script>
+  });
+
+  document.addEventListener("mouseup", e => {
+    dragging = false;
+    // Check if knife overlaps cake
+    const kc = cake.getBoundingClientRect();
+    const kn = knife.getBoundingClientRect();
+    if (
+      kn.x + kn.width/2 > kc.x &&
+      kn.x + kn.width/2 < kc.x + kc.width &&
+      kn.y + kn.height/2 > kc.y &&
+      kn.y + kn.height/2 < kc.y + kc.height
+    ) {
+      msg.style.display = "block";
+    }
+  });
+</script>
 
 </body>
 </html>
