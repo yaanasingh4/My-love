@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Happy Birthday Gunnu Bunnu</title>
+  <title>Happy Birthday Gunnuu Bunnuu</title>
   <style>
     body {
       background: #ffe6ef;
@@ -15,14 +15,11 @@
       font-size: 80px; /* huge heading */
       margin-bottom: 20px;
     }
-    .cake-container {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
+    #cake {
+      font-size: 400px; /* HUGE cake emoji */
+      cursor: pointer;
+      display: inline-block;
       margin-top: 40px;
-      font-size: 250px; /* HUGE emojis! real-size cake */
-      position: relative;
     }
     #msg {
       display: none;
@@ -33,92 +30,29 @@
       line-height: 1.4;
       text-align: center;
     }
-    #knife {
-      cursor: grab;
-      position: relative;
-      display: inline-block;
-    }
   </style>
 </head>
 <body>
 
-<h1>Happy Birthday Gunny Bunnu 🤍</h1>
-<p style="font-size:28px;">Drag the knife to the cake 🎂</p>
+<h1>Happy Birthday Gunnuu Bunnuu 🤍</h1>
+<p style="font-size:28px;">Click the cake to cut 🎂</p>
 
-<div class="cake-container">
-  <!-- HUGE emoji cake -->
-  <span id="cake">🎂</span>
-  <!-- HUGE emoji knife -->
-  <span id="knife">🔪</span>
-</div>
+<!-- Huge cake emoji -->
+<span id="cake">🎂</span>
 
+<!-- Sweet paragraph message -->
 <div id="msg">
 My love, you are my heart and my home. Every moment with you feels magical, and I am so grateful for your love, your laughter, and your care. I promise to stand by you forever, to protect you, and to love you more every single day. You make my world brighter, happier, and complete ❤️
 </div>
 
 <script>
-const knife = document.getElementById("knife");
-const cake = document.getElementById("cake");
-const msg = document.getElementById("msg");
+  const cake = document.getElementById("cake");
+  const msg = document.getElementById("msg");
 
-let offsetX = 0, offsetY = 0, dragging = false;
-
-// Desktop drag
-knife.addEventListener("mousedown", e => {
-  dragging = true;
-  offsetX = e.clientX - knife.offsetLeft;
-  offsetY = e.clientY - knife.offsetTop;
-});
-
-document.addEventListener("mousemove", e => {
-  if (dragging) {
-    knife.style.position = "absolute";
-    knife.style.left = (e.clientX - offsetX) + "px";
-    knife.style.top  = (e.clientY - offsetY) + "px";
-  }
-});
-
-document.addEventListener("mouseup", e => {
-  dragging = false;
-  checkOverlap();
-});
-
-// Touch drag for iPad/phone
-knife.addEventListener("touchstart", e => {
-  dragging = true;
-  const touch = e.touches[0];
-  offsetX = touch.clientX - knife.offsetLeft;
-  offsetY = touch.clientY - knife.offsetTop;
-  e.preventDefault();
-});
-
-document.addEventListener("touchmove", e => {
-  if (dragging) {
-    const touch = e.touches[0];
-    knife.style.position = "absolute";
-    knife.style.left = (touch.clientX - offsetX) + "px";
-    knife.style.top = (touch.clientY - offsetY) + "px";
-    e.preventDefault();
-  }
-});
-
-document.addEventListener("touchend", e => {
-  dragging = false;
-  checkOverlap();
-});
-
-function checkOverlap() {
-  const kc = cake.getBoundingClientRect();
-  const kn = knife.getBoundingClientRect();
-  if (
-    kn.x + kn.width/2 > kc.x &&
-    kn.x + kn.width/2 < kc.x + kc.width &&
-    kn.y + kn.height/2 > kc.y &&
-    kn.y + kn.height/2 < kc.y + kc.height
-  ) {
+  // Click on cake to reveal message
+  cake.addEventListener("click", () => {
     msg.style.display = "block";
-  }
-}
+  });
 </script>
 
 </body>
