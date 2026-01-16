@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Gunnuu Bunnuu</title>
+  <style>
+    body {
+      background: #ffe6ef;
+      font-family: 'Arial Black', Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    h1 {
+      color: #b30059;
+      font-size: 80px; /* huge heading */
+      margin-bottom: 20px;
+    }
+    #cake {
+      font-size: 400px; /* HUGE cake emoji */
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 40px;
+    }
+    #msg {
+      display: none;
+      font-size: 50px; /* huge message */
+      color: #660033;
+      margin-top: 40px;
+      max-width: 900px;
+      line-height: 1.4;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Happy Birthday Gunnuu Bunnuu 🤍</h1>
+<p style="font-size:28px;">Click the cake to cut 🎂</p>
+
+<!-- Huge cake emoji -->
+<span id="cake">🎂</span>
+
+<!-- Sweet paragraph message -->
+<div id="msg">
+My love, you are my heart and my home. Every moment with you feels magical, and I am so grateful for your love, your laughter, and your care. I promise to stand by you forever, to protect you, and to love you more every single day. You make my world brighter, happier, and complete ❤️
+</div>
+
+<script>
+  const cake = document.getElementById("cake");
+  const msg = document.getElementById("msg");
+
+  // Click on cake to reveal message
+  cake.addEventListener("click", () => {
+    msg.style.display = "block";
+  });
+</script>
+
+</body>
+</html>
