@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Happy Birthday Gunny Bunnu</title>
+  <style>
+    body {
+      background: #ffe6ef;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 40px;
+    }
+    h1 { color: #b30059; }
+    img { width: 280px; cursor: pointer; }
+    #msg { display:none; font-size: 20px; color:#660033; margin-top:20px;}
+  </style>
+</head>
+
+<body>
+
+<h1>Happy Birthday Gunny Bunnu 🤍</h1>
+<p>Tap the cake to cut it 🎂</p>
+
+<img id="cake" src="https://i.imgur.com/8Km9tLL.png">
+
+<div id="msg">
+  My gunnu, my bacha.<br><br>
+  You make me feel protected and safe.<br>
+  My heart feels safest with you.<br><br>
+  I love you ❤️
+</div>
+
+<audio id="music">
+  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Stephen_Dawes/Pop_Singles/Stephen_Dawes_-_Until_I_Found_You.mp3">
+</audio>
+
+<script>
+  document.getElementById("cake").onclick = function() {
+    this.src = "https://i.imgur.com/1xO7K0y.png";
+    document.getElementById("msg").style.display = "block";
+    document.getElementById("music").play();
+  }
+</script>
+
+</body>
+</html>
