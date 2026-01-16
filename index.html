@@ -15,16 +15,21 @@
       font-size: 80px; /* huge heading */
       margin-bottom: 20px;
     }
+    .cake-container {
+      display: inline-flex; /* cake and knife side by side */
+      align-items: center;
+      justify-content: center;
+      gap: 20px; /* space between cake and knife */
+      margin-top: 40px;
+      position: relative;
+    }
     #cake {
-      width: 400px; /* bigger cake */
-      margin: 40px auto;
-      display: block;
+      width: 400px;
     }
     #knife {
-      width: 150px; /* bigger knife */
-      position: absolute;
-      top: 20px;
+      width: 120px; /* smaller, pixel knife */
       cursor: grab;
+      touch-action: none;
     }
     #msg {
       display: none;
@@ -42,11 +47,13 @@
 <h1>Happy Birthday Gunny Bunnu 🤍</h1>
 <p style="font-size:28px;">Drag the knife to the cake 🎂</p>
 
-<!-- Pixel cake -->
-<img id="cake" src="https://media.tenor.com/Nb0Z5V93dJQAAAAC/birthday-cake-pixel-art.gif" alt="Pixel cake">
+<div class="cake-container">
+  <!-- Pixel cake -->
+  <img id="cake" src="https://media.tenor.com/Nb0Z5V93dJQAAAAC/birthday-cake-pixel-art.gif" alt="Pixel cake">
 
-<!-- Knife -->
-<img id="knife" src="https://www.kindpng.com/picc/m/456-4561720_gif-clipart-png-download-butter-knife-pixel-art.png" alt="Knife">
+  <!-- Pixel knife beside the cake -->
+  <img id="knife" src="https://i.imgur.com/Xz8VgX0.png" alt="Knife">
+</div>
 
 <!-- Sweet paragraph message -->
 <div id="msg">
@@ -54,39 +61,69 @@ My love, you are my heart and my home. Every moment with you feels magical, and 
 </div>
 
 <script>
-  const knife = document.getElementById("knife");
-  const cake = document.getElementById("cake");
-  const msg = document.getElementById("msg");
+const knife = document.getElementById("knife");
+const cake = document.getElementById("cake");
+const msg = document.getElementById("msg");
 
-  let offsetX, offsetY, dragging = false;
+let offsetX = 0, offsetY = 0, dragging = false;
 
-  knife.addEventListener("mousedown", e => {
-    dragging = true;
-    offsetX = e.clientX - knife.offsetLeft;
-    offsetY = e.clientY - knife.offsetTop;
-  });
+// Desktop drag
+knife.addEventListener("mousedown", e => {
+  dragging = true;
+  offsetX = e.clientX - knife.offsetLeft;
+  offsetY = e.clientY - knife.offsetTop;
+});
 
-  document.addEventListener("mousemove", e => {
-    if (dragging) {
-      knife.style.left = (e.clientX - offsetX) + "px";
-      knife.style.top  = (e.clientY - offsetY) + "px";
-    }
-  });
+document.addEventListener("mousemove", e => {
+  if (dragging) {
+    knife.style.position = "absolute"; // make it float during drag
+    knife.style.left = (e.clientX - offsetX) + "px";
+    knife.style.top  = (e.clientY - offsetY) + "px";
+  }
+});
 
-  document.addEventListener("mouseup", e => {
-    dragging = false;
-    // Check if knife overlaps cake
-    const kc = cake.getBoundingClientRect();
-    const kn = knife.getBoundingClientRect();
-    if (
-      kn.x + kn.width/2 > kc.x &&
-      kn.x + kn.width/2 < kc.x + kc.width &&
-      kn.y + kn.height/2 > kc.y &&
-      kn.y + kn.height/2 < kc.y + kc.height
-    ) {
-      msg.style.display = "block";
-    }
-  });
+document.addEventListener("mouseup", e => {
+  dragging = false;
+  checkOverlap();
+});
+
+// Touch drag for iPad/phone
+knife.addEventListener("touchstart", e => {
+  dragging = true;
+  const touch = e.touches[0];
+  offsetX = touch.clientX - knife.offsetLeft;
+  offsetY = touch.clientY - knife.offsetTop;
+  e.preventDefault();
+});
+
+document.addEventListener("touchmove", e => {
+  if (dragging) {
+    const touch = e.touches[0];
+    knife.style.position = "absolute"; 
+    knife.style.left = (touch.clientX - offsetX) + "px";
+    knife.style.top = (touch.clientY - offsetY) + "px";
+    e.preventDefault();
+  }
+});
+
+document.addEventListener("touchend", e => {
+  dragging = false;
+  checkOverlap();
+});
+
+// Function to check if knife is over cake
+function checkOverlap() {
+  const kc = cake.getBoundingClientRect();
+  const kn = knife.getBoundingClientRect();
+  if (
+    kn.x + kn.width/2 > kc.x &&
+    kn.x + kn.width/2 < kc.x + kc.width &&
+    kn.y + kn.height/2 > kc.y &&
+    kn.y + kn.height/2 < kc.y + kc.height
+  ) {
+    msg.style.display = "block";
+  }
+}
 </script>
 
 </body>
