@@ -11,25 +11,32 @@
       padding-top: 40px;
     }
     h1 { color: #b30059; }
-    img { width: 200px; cursor: pointer; margin-top: 20px; }
+    #cake { width: 240px; margin-top: 20px; }
+    #knife { width: 80px; cursor: pointer; margin-top: 20px; }
     #msg { display: none; font-size: 20px; color: #660033; margin-top: 20px; }
   </style>
 </head>
 <body>
 
   <h1>Happy Birthday Gunny Bunnu 🤍</h1>
-  <p>Tap the cake to cut it 🎂</p>
+  <p>Click the knife to cut the cake 🎂</p>
 
-  <!-- Pixelated animated cake -->
-  <img id="cake" src="cake.png" alt="cake.png">
+  <!-- Cake image -->
+  <img id="cake" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Chocolate_Cake_with_Candle.png" alt="Cake">
+
+  <!-- Knife image -->
+  <br>
+  <img id="knife" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Knife_icon.png" alt="Knife">
 
   <div id="msg">
     I love you the most and stand by you forever ❤️
   </div>
 
   <script>
-    document.getElementById("cake").onclick = function() {
-      this.src = "https://i.imgur.com/7UekD1M.gif"; // stays pixelated GIF
+    document.getElementById("knife").onclick = function() {
+      // Change cake image to “cut cake” (can be same if you don’t have one)
+      document.getElementById("cake").src = "https://upload.wikimedia.org/wikipedia/commons/4/45/Chocolate_Cake_with_Candle.png";
+      // Show the hidden message
       document.getElementById("msg").style.display = "block";
     }
   </script>
