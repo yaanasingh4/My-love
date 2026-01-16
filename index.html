@@ -16,29 +16,27 @@
       margin-bottom: 20px;
     }
     .cake-container {
-      display: inline-flex; /* cake and knife side by side */
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 20px; /* space between cake and knife */
+      gap: 40px;
       margin-top: 40px;
+      font-size: 250px; /* HUGE emojis! real-size cake */
       position: relative;
-    }
-    #cake {
-      width: 400px;
-    }
-    #knife {
-      width: 120px; /* smaller, pixel knife */
-      cursor: grab;
-      touch-action: none;
     }
     #msg {
       display: none;
-      font-size: 36px; /* huge message */
+      font-size: 50px; /* huge message */
       color: #660033;
       margin-top: 40px;
       max-width: 900px;
       line-height: 1.4;
       text-align: center;
+    }
+    #knife {
+      cursor: grab;
+      position: relative;
+      display: inline-block;
     }
   </style>
 </head>
@@ -48,14 +46,12 @@
 <p style="font-size:28px;">Drag the knife to the cake 🎂</p>
 
 <div class="cake-container">
-  <!-- Pixel cake -->
-  <img id="cake" src="https://media.tenor.com/Nb0Z5V93dJQAAAAC/birthday-cake-pixel-art.gif" alt="Pixel cake">
-
-  <!-- Pixel knife beside the cake -->
-  <img id="knife" src="https://i.imgur.com/Xz8VgX0.png" alt="Knife">
+  <!-- HUGE emoji cake -->
+  <span id="cake">🎂</span>
+  <!-- HUGE emoji knife -->
+  <span id="knife">🔪</span>
 </div>
 
-<!-- Sweet paragraph message -->
 <div id="msg">
 My love, you are my heart and my home. Every moment with you feels magical, and I am so grateful for your love, your laughter, and your care. I promise to stand by you forever, to protect you, and to love you more every single day. You make my world brighter, happier, and complete ❤️
 </div>
@@ -76,7 +72,7 @@ knife.addEventListener("mousedown", e => {
 
 document.addEventListener("mousemove", e => {
   if (dragging) {
-    knife.style.position = "absolute"; // make it float during drag
+    knife.style.position = "absolute";
     knife.style.left = (e.clientX - offsetX) + "px";
     knife.style.top  = (e.clientY - offsetY) + "px";
   }
@@ -99,7 +95,7 @@ knife.addEventListener("touchstart", e => {
 document.addEventListener("touchmove", e => {
   if (dragging) {
     const touch = e.touches[0];
-    knife.style.position = "absolute"; 
+    knife.style.position = "absolute";
     knife.style.left = (touch.clientX - offsetX) + "px";
     knife.style.top = (touch.clientY - offsetY) + "px";
     e.preventDefault();
@@ -111,7 +107,6 @@ document.addEventListener("touchend", e => {
   checkOverlap();
 });
 
-// Function to check if knife is over cake
 function checkOverlap() {
   const kc = cake.getBoundingClientRect();
   const kn = knife.getBoundingClientRect();
